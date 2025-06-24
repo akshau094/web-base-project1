@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Coffee</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <link rel="website icon" type="icon" href="images/logo.png">
+    <style>
+        /* Reset default styling and apply base styles */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scrollbars */
+            background-image: url('images/top-view-brown-coffee-seeds-with-choco-bars-coffee-cups.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for better contrast */
+            color: #fff;
+        }
+        
+        header {
+            background: linear-gradient(to right, #ff9900, #cc7a00);
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        
+        nav ul li a:hover {
+            color: #333;
+            background-color: white;
+        }
+        
+        main {
+            margin-top: 70px; /* Add margin to prevent content from hiding behind fixed nav */
+        }
+        
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .coffee-card {
+            width: 250px; /* Adjust card width as needed */
+            border: 1px solid #ddd;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Light background for contrast */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .coffee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .coffee-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .coffee-card h2 {
+            margin-bottom: 5px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        
+        .coffee-card p {
+            margin: 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+        
+        .coffee-card button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .coffee-card button:hover {
+            background-color: #cc7a00;
+        }
+        
+        .order-summary {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 20px auto;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .order-summary h2 {
+            color: #333;
+        }
+        
+        .order-summary ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .order-summary ul li {
+            margin: 10px 0;
+            color: #555;
+        }
+        
+        .total {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        
+        .place-order {
+            margin-top: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .place-order:hover {
+            background-color: #cc7a00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="order.html">Order Coffee</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="menu">
+            <div class="coffee-card">
+                <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-americano-coffee-beans-transparent-white-background-png-image_6698453.png" alt="Americano">
+                <h2>Americano</h2>
+                <p>$2.95</p>
+                <button class="add-to-order" onclick="addToOrder('Americano', 2.95)">Add to Order</button>
+            </div>
+    
+            <div class="coffee-card">
+                <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-americano-coffee-beans-transparent-white-background-png-image_6698453.png" alt="Cappuccino">
+                <h2>Cappuccino</h2>
+                <p>$4.25</p>
+                <button class="add-to-order" onclick="addToOrder('Cappuccino', 4.25)">Add to Order</button>
+            </div>
+    
+            <div class="coffee-card">
+                <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-americano-coffee-beans-transparent-white-background-png-image_6698453.png" alt="Caffè macchiato">
+                <h2>Caffè macchiato</h2>
+                <p>$3.60</p>
+                <button class="add-to-order" onclick="addToOrder('Caffè macchiato', 3.60)">Add to Order</button>
+            </div>
+    
+            <div class="coffee-card">
+                <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-americano-coffee-beans-transparent-white-background-png-image_6698453.png" alt="Espresso">
+                <h2>Espresso</h2>
+                <p>$1.30</p>
+                <button class="add-to-order" onclick="addToOrder('Espresso', 1.30)">Add to Order</button>
+            </div>
+    
+            <div class="coffee-card">
+                <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-americano-coffee-beans-transparent-white-background-png-image_6698453.png" alt="Latte">
+                <h2>Latte</h2>
+                <p>$3.26</p>
+                <button class="add-to-order" onclick="addToOrder('Latte', 3.26)">Add to Order</button>
+            </div>
+    
+            <div class="coffee-card">
+                <img src="https://pakistanatlas.com/wp-content/uploads/2020/09/Pakistani-Food_0000_1-Chai.png" alt="Desi Chai">
+                <h2>Desi Chai</h2>
+                <p>$0.12</p>
+                <button class="add-to-order" onclick="addToOrder('Desi Chai', 0.12)">Add to Order</button>
+            </div>
+    
+            <div class="coffee-card">
+                <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-americano-coffee-beans-transparent-white-background-png-image_6698453.png" alt="Flat White">
+                <h2>Flat White</h2>
+                <p>$2.34</p>
+                <button class="add-to-order" onclick="addToOrder('Flat White', 2.34)">Add to Order</button>
+            </div>
+    
+            <div class="coffee-card">
+                <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-americano-coffee-beans-transparent-white-background-png-image_6698453.png" alt="Iced Coffee">
+                <h2>Iced Coffee</h2>
+                <p>$2.05</p>
+                <button class="add-to-order" onclick="addToOrder('Iced Coffee', 2.05)">Add to Order</button>
+            </div>
+        </section>
+    
+        <section class="order-summary">
+            <h2>Order Summary</h2>
+            <ul id="order-list">
+                <!-- Order items will be dynamically added here -->
+            </ul>
+            <div class="total">
+                <h3>Total Amount:</h3>
+                <p id="total-amount">$0.00</p>
+            </div>
+            <a href="buying.html"><button class="place-order" onclick="placeOrder()">Place Order</button></a>
+        </section>
+    </main>
+    
+    <script>
+        let order = [];
+let totalAmount = 0;
+
+function addToOrder(item, price) {
+    order.push({ item, price });
+    updateOrderSummary();
+}
+
+function updateOrderSummary() {
+    const orderList = document.getElementById('order-list');
+    orderList.innerHTML = '';
+    order.forEach(orderItem => {
+        const li = document.createElement('li');
+        li.textContent = `${orderItem.item} - $${orderItem.price.toFixed(2)}`;
+        orderList.appendChild(li);
+    });
+    totalAmount = order.reduce((sum, orderItem) => sum + orderItem.price, 0);
+    document.getElementById('total-amount').textContent = `$${totalAmount.toFixed(2)}`;
+}
+
+function placeOrder() {
+    localStorage.setItem('order', JSON.stringify(order));
+    localStorage.setItem('totalAmount', totalAmount.toFixed(2));
+    window.location.href = 'buying.html';
+}
+    </script>
+</body>
+</html>

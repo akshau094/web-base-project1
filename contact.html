@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="website icon" type="icon" href="notes-images/pen.png" />
+    <title>Contact Form</title>
+    <link rel="website icon" type="icon" href="images/logo.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(images/top-view-brown-coffee-seeds-with-choco-bars-coffee-cups.jpg);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url(images/top-view-brown-coffee-seeds-with-choco-bars-coffee-cups.jpg);
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for better contrast */
+            background-size: cover; /* Ensures the image covers the entire container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            padding: 20px; /* Adds padding around the image */
+           
+
+        }
+
+        .container {
+            width: 400px;
+            height: 500px;
+            max-width: 600px;
+            background-color: wheat;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-header h2 {
+            color: #333;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            height: 120px;
+        }
+
+        .form-group button[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: white 0.3s ease;
+            margin-left: 135px;
+        }
+
+        .form-group button[type="submit"]:hover {
+            background-color: #009fef;
+        }
+
+        #submit {
+            margin: 0;
+            position: absolute;
+            top: 60%;
+            margin-left: 120px;
+            transform: translateY(160px);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 130, 243, 0.7);
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: black;
+            margin: 4px 0;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: rgba(10, 130, 243, 0.7);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links a {
+                padding: 5px;
+                font-size: 14px;
+            }
+
+            .brand-name {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="container">
+        <div class="form-header">
+            <h2>Contact Us</h2>
+        </div>
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="e74910f7-a51a-428e-872f-0f7f6678fa91">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Problem</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit Form</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

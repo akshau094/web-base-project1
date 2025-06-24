@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Payment</title>
+  <link rel="website icon" type="icon" href="images/logo.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url(images/top-view-brown-coffee-seeds-with-choco-bars-coffee-cups.jpg);
+      background-blend-mode: overlay;
+      background-color: rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 0;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .checkout {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+      margin: 20px auto;
+      margin-top: 50px;
+
+    }
+
+    .checkout h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .checkout form {
+      text-align: left;
+    }
+
+    .checkout label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
+
+    .checkout input[type="text"],
+    .checkout input[type="tel"],
+    .checkout textarea {
+      width: calc(100% - 20px);
+      padding: 8px;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .checkout #payment-mode {
+      margin-bottom: 10px;
+    }
+
+    .checkout #payment-mode button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .checkout #payment-mode button:hover {
+      background-color: #555;
+    }
+
+    .checkout #qr-code {
+      margin-top: 10px;
+    }
+
+    .checkout #qr-code img {
+      max-width: 100%;
+      margin-top: 10px;
+    }
+
+    .checkout button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .checkout button[type="submit"]:hover {
+      background-color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .checkout {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+
+  <section class="checkout">
+    <h2>Checkout</h2>
+    <form id="checkout-form">
+      <section class="payment">
+        <h2>Online Payment</h2>
+        <p>Total Amount: $<span id="total-amount"></span></p>
+      </section>
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" required></textarea>
+
+      <label for="mobile">Mobile No:</label>
+      <input type="tel" id="mobile" name="mobile" required />
+
+      <label for="payment-mode">Payment Mode:</label>
+      <div id="payment-mode">
+        <button type="button" onclick="selectPayment('cash')">Cash on Delivery</button>
+        <button type="button" onclick="selectPayment('qr')">Pay with QR</button>
+      </div>
+
+      <div id="qr-code" style="display: none">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTptxKwAtxb1bWCfw_epSC7ZIkl422aJ24xhQ&s" alt="QR Code" />
+      </div>
+
+      <button type="submit">Submit Order</button>
+    </form>
+    <p id="order-message"></p>
+  </section>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  
+  <script>
+    (function () {
+      emailjs.init("akshaysaitwal9@gmail.com"); // Replace with your EmailJS user ID
+    })();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const totalAmount = localStorage.getItem("totalAmount");
+      document.getElementById("total-amount").textContent = totalAmount ? totalAmount : "0.00";
+    });
+
+    function selectPayment(method) {
+      const qrCodeElement = document.getElementById("qr-code");
+      const orderMessageElement = document.getElementById("order-message");
+
+      if (method === "cash") {
+        qrCodeElement.style.display = "none";
+        orderMessageElement.textContent = "You have selected Cash on Delivery.";
+      } else if (method === "qr") {
+        qrCodeElement.style.display = "block";
+        orderMessageElement.textContent = "You have selected QR Code Payment.";
+      }
+    }
+
+    document.getElementById("checkout-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const mobile = document.getElementById("mobile").value;
+      const totalAmount = document.getElementById("total-amount").textContent;
+      const orderMessage = document.getElementById("order-message").textContent;
+
+      if (!orderMessage) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      const paymentMode = orderMessage.includes("Cash on Delivery") ? "Cash on Delivery" : "QR Code";
+
+      // Generate PDF receipt
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.text("Checkout Receipt", 10, 10);
+      doc.text(`Name: ${name}`, 10, 20);
+      doc.text(`Address: ${address}`, 10, 30);
+      doc.text(`Mobile: ${mobile}`, 10, 40);
+      doc.text(`Total Amount: $${totalAmount}`, 10, 50);
+      doc.text(`Payment Mode: ${paymentMode}`, 10, 60);
+
+      doc.save("receipt.pdf");
+
+      alert(`Order submitted!\nName: ${name}\nAddress: ${address}\nMobile: ${mobile}\nPayment Mode: ${paymentMode}`);
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <Script>
+    document.addEventListener('DOMContentLoaded', () => {
+            const totalAmount = localStorage.getItem('totalAmount');
+            document.getElementById('total-amount').textContent = totalAmount ? totalAmount : '0.00';
+        });
+
+        function selectPayment(method) {
+            const qrCodeElement = document.getElementById('qr-code');
+            const orderMessageElement = document.getElementById('order-message');
+            
+            if (method === 'cash') {
+                qrCodeElement.style.display = 'none';
+                orderMessageElement.textContent = 'You have selected Cash on Delivery.';
+            } else if (method === 'qr') {
+                qrCodeElement.style.display = 'block';
+                orderMessageElement.textContent = 'You have selected QR Code Payment.';
+            }
+        }
+
+        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const mobile = document.getElementById('mobile').value;
+            const orderMessage = document.getElementById('order-message').textContent;
+
+            if (!orderMessage) {
+                alert('Please select a payment method.');
+                return;
+            }
+
+            const paymentMode = orderMessage.includes('Cash on Delivery') ? 'Cash on Delivery' : 'QR Code';
+
+            alert(`Order submitted!\nName: ${name}\nAddress: ${address}\nMobile: ${mobile}\nPayment Mode: ${paymentMode}`);
+        });
+  </Script>
+</body>
+</html>
